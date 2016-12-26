@@ -75,6 +75,14 @@ swiftmailer:
 sensio_framework_extra:
     request: { converters: true }
 
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+            blameable: true
+            timestampable: true
+
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
@@ -105,10 +113,11 @@ fos_rest:
 jms_serializer:
     enable_short_alias: false
     metadata:
+        auto_detection: true
         directories:
-            FOSUB:
+            FOSUserBundle:
                 namespace_prefix: "FOS\\UserBundle"
-                path: "%kernel.root_dir%/Resources/FOSUserBundle/serializer"
+                path: "@KaynethUserBundle/Resources/config/serializer"
 
 lexik_jwt_authentication:
     private_key_path: %jwt_private_key_path%

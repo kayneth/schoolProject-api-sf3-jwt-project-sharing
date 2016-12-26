@@ -22,8 +22,10 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Kayneth\UserBundle\KaynethUserBundle(),
             new Kayneth\CreationBundle\KaynethCreationBundle(),
+            new Kayneth\FileBundle\KaynethFileBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

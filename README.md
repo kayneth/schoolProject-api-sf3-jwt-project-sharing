@@ -4,6 +4,13 @@ Projet de Licence Pro. Multimédia à Le Puy. Réaliser un site de partage de cr
 
 ## TODOLIST
 
+* Resize de l'image à l'upload sous les formats
+    * 125*125
+    * 476*476
+    * Originale ou max 1080*1080
+    * https://openclassrooms.com/courses/concevez-votre-site-web-avec-php-et-mysql/creer-des-images-en-php
+    * https://github.com/liip/LiipImagineBundle
+
 ## Ma documentation pour ce projet
 
 ### JWT TOKEN
@@ -42,3 +49,5 @@ Projet de Licence Pro. Multimédia à Le Puy. Réaliser un site de partage de cr
     * http://www.foulquier.info/tutoriaux/mise-en-place-d-une-api-rest-avec-fosrestbundle-dans-symfony-2
     
 * http://louis.hatier.me/blog/developper-api-rest-symfony-3/
+
+* https://gist.github.com/Graceas/6505663

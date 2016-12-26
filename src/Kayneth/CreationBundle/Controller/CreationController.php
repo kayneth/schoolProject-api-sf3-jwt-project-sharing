@@ -2,8 +2,11 @@
 
 namespace Kayneth\CreationBundle\Controller;
 
+use Kayneth\CreationBundle\Entity\Creation;
+use Kayneth\CreationBundle\Form\CreationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class CreationController extends Controller implements ClassResourceInterface
 {
@@ -18,24 +21,37 @@ class CreationController extends Controller implements ClassResourceInterface
         return array('creations' => $creations);
     }
 
-    public function getAction($slug)
+    public function postAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $creation = $em
-            ->getRepository('KaynethCreationBundle:Creation')
-            ->findOneBySlug($slug);
-        ;
+        $creation = new Creation();
+        $creation->setCreatedAt(new \Datetime());
+        $form = $this->createForm(CreationType::class, $creation);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($creation);
+            $em->flush();
+        }
 
         return array('creation' => $creation);
     }
 
-    public function postUsersAction()
+    public function putAction(Request $request, Creation $creation)
     {
+        $creation = new Creation();
+        $creation->setCreatedAt(new \Datetime());
+        $form = $this->createForm(CreationType::class, $creation);
 
-    }
+        $form->handleRequest($request);
 
-    public function putAction($slug)
-    {
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($creation);
+            $em->flush();
+        }
 
+        return array('creation' => $creation);
     }
 }

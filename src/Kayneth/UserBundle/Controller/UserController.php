@@ -2,10 +2,13 @@
 
 namespace Kayneth\UserBundle\Controller;
 
+use Kayneth\CreationBundle\Entity\Creation;
+use Kayneth\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 
 use FOS\RestBundle\Controller\Annotations\View;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller implements ClassResourceInterface
 {
@@ -32,13 +35,35 @@ class UserController extends Controller implements ClassResourceInterface
         return array('user' => $user);
     }
 
-    public function postUsersAction()
+    public function postUsersAction(Request $request)
     {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
 
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return array('user' => $user);
     }
 
-    public function putAction($slug)
+    public function putAction(Request $request, User $user)
     {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
 
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return array('user' => $user);
     }
 }
