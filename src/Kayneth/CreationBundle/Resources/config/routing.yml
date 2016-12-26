@@ -1,0 +1,10 @@
+creation:
+    type:     rest
+    resource: Kayneth\CreationBundle\Controller\CreationController
+    name_prefix:  api_
+
+comments:
+    type:     rest
+    parent:   creation
+    resource: Kayneth\CreationBundle\Controller\CommentController
+    name_prefix:  api_

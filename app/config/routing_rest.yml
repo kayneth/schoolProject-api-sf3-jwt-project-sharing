@@ -1,0 +1,7 @@
+kayneth_creation:
+    type: rest
+    resource: "@KaynethCreationBundle/Resources/config/routing.yml"
+
+kayneth_user:
+    type: rest
+    resource: "@KaynethUserBundle/Resources/config/routing.yml"

@@ -1,0 +1,4 @@
+user:
+    type:     rest
+    resource: Kayneth\UserBundle\Controller\UserController
+    name_prefix:  api_
