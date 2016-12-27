@@ -37,6 +37,8 @@ Projet de Licence Pro. Multimédia à Le Puy. Réaliser un site de partage de cr
 
 * Une très bonne documentation sur les bonnes manières de faire une API :
     * http://afsy.fr/avent/2013/06-best-practices-pour-vos-apis-rest-http-avec-symfony2
+    
+* https://ypereirareis.github.io/blog/2016/03/16/symfony-lexikjwtauthenticationbundle-client-user-authenticator-provider/
 
 * http://symfony.com/doc/master/bundles/FOSRestBundle/index.html
     * http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html
@@ -51,3 +53,8 @@ Projet de Licence Pro. Multimédia à Le Puy. Réaliser un site de partage de cr
 * http://louis.hatier.me/blog/developper-api-rest-symfony-3/
 
 * https://gist.github.com/Graceas/6505663
+
+* https://github.com/SimplonReunion/developpeur-web/wiki/API-Rest-&-Symfony-:-les-d%C3%A9buts
+
+* Utiliser le serializer de base de symfony
+   * http://symfony.com/doc/current/components/serializer.html#deserializing-an-object
