@@ -6,18 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreationType extends AbstractType
+class CommentType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
-            ->add('link')
-            ->add('description')
-            //->add('category')
-        ;
+        $builder->add('content');
     }
     
     /**
@@ -27,7 +23,7 @@ class CreationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'csrf_protection'   => false,
-            'data_class' => 'Kayneth\CreationBundle\Entity\Creation'
+            'data_class' => 'Kayneth\CreationBundle\Entity\Comment'
         ));
     }
 
@@ -36,7 +32,7 @@ class CreationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'kayneth_creationbundle_creation';
+        return 'kayneth_creationbundle_comment';
     }
 
 

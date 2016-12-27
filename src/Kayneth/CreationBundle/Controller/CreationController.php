@@ -23,35 +23,53 @@ class CreationController extends Controller implements ClassResourceInterface
 
     public function postAction(Request $request)
     {
-        $creation = new Creation();
-        $creation->setCreatedAt(new \Datetime());
-        $form = $this->createForm(CreationType::class, $creation);
+        $serializer = $this->get('jms_serializer');
+        $content = $request->getContent();
 
-        $form->handleRequest($request);
+        /**
+         * @var Creation $creation
+         */
+        $creation = $serializer->deserialize($content, Creation::class, 'json');
 
-        if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('KaynethCreationBundle:Category')->find($creation->getCategory()->getId());
+        $creation->setCategory($category);
+
+        $validator = $this->get('validator');
+        $errors = $validator->validate($creation);
+
+        if (count($errors) <= 0) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($creation);
             $em->flush();
-        }
+            return array('creation' => $creation);
+        }else{
 
-        return array('creation' => $creation);
+            return array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        }
     }
 
     public function putAction(Request $request, Creation $creation)
     {
-        $creation = new Creation();
-        $creation->setCreatedAt(new \Datetime());
         $form = $this->createForm(CreationType::class, $creation);
 
-        $form->handleRequest($request);
+        $form->submit($request->request->all());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($creation);
             $em->flush();
-        }
+            return array('creation' => $creation);
+        }else{
+            $errors = $this->get('form_serializer')->serializeFormErrors($form, true, true);
 
-        return array('creation' => $creation);
+            return array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        }
     }
 }

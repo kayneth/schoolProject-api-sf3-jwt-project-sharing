@@ -3,8 +3,6 @@
 namespace Kayneth\CreationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Comment
@@ -33,7 +31,6 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetimetz")
      */
     private $createdAt;
@@ -41,7 +38,6 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetimetz", nullable=true)
      */
     private $updatedAt;
@@ -129,3 +125,4 @@ class Comment
         return $this->updatedAt;
     }
 }
+

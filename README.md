@@ -24,6 +24,7 @@ Projet de Licence Pro. Multimédia à Le Puy. Réaliser un site de partage de cr
 ### API REST
 
 * https://zestedesavoir.com/tutoriels/1280/creez-une-api-rest-avec-symfony-3/
+    * Documentation +++, meilleur site au monde. Surtout pour le $form->submit(). Il vous sauvera la vie ! 
 
 * Commencer rapidement avec FosRestBundle et JMSSerializerBundle 
     * http://obtao.com/blog/2013/12/creer-une-api-rest-dans-une-application-symfony/
@@ -37,6 +38,7 @@ Projet de Licence Pro. Multimédia à Le Puy. Réaliser un site de partage de cr
 
 * Une très bonne documentation sur les bonnes manières de faire une API :
     * http://afsy.fr/avent/2013/06-best-practices-pour-vos-apis-rest-http-avec-symfony2
+        * Utilisation de Hateoas
     
 * https://ypereirareis.github.io/blog/2016/03/16/symfony-lexikjwtauthenticationbundle-client-user-authenticator-provider/
 

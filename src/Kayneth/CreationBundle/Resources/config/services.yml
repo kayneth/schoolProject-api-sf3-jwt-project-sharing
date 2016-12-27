@@ -2,3 +2,5 @@ services:
 #    kayneth_creation.example:
 #        class: Kayneth\CreationBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+     form_serializer:
+         class: Kayneth\CreationBundle\Utils\FormErrorsSerializer
