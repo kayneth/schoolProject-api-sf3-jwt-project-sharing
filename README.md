@@ -60,3 +60,19 @@ Projet de Licence Pro. Multimédia à Le Puy. Réaliser un site de partage de cr
 
 * Utiliser le serializer de base de symfony
    * http://symfony.com/doc/current/components/serializer.html#deserializing-an-object
+   
+   ### Comment faire des requêtes POST/PUT/DELETE sur une API Symfony3
+   
+   ``` Example JQUERY
+   $.ajax({
+          type:"POST",
+          url: "api_url",
+          data: JSON.stringify(datasObj),
+      });
+   ```
+   Ajouter des headers, si besoin ou utiliser CORSBundle
+   ```
+$headers = array(
+   'Access-Control-Allow-Origin' => '* ou url spécifique'
+);
+```
