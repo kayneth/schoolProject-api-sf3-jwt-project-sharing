@@ -118,6 +118,13 @@ class Creation
     private $category;
 
     /**
+     * @ORM\OneToMany(targetEntity="Kayneth\CreationBundle\Entity\Comment", mappedBy="creation")
+     *
+     * @Expose
+     */
+    private $comments;
+
+    /**
      * @Assert\IsTrue(message = "La création doit disposer d'une image ou d'un lien")
      */
     public function hasLinkOrFile()
@@ -332,5 +339,52 @@ class Creation
         }
         return $dir="null";
     }
-}
 
+    /**
+     * Set user
+     *
+     * @param \Kayneth\UserBundle\Entity\User $user
+     *
+     * @return Creation
+     */
+    public function setUser(\Kayneth\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Kayneth\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Kayneth\CreationBundle\Entity\Category $category
+     *
+     * @return Creation
+     */
+    public function setCategory(\Kayneth\CreationBundle\Entity\Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Kayneth\CreationBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+}

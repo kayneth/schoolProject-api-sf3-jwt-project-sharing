@@ -66,8 +66,9 @@ class File
      * @var UploadedFile
      * @Assert\File (
      *   maxSize = "512k",
-     *   mimeTypes = {"image/png", "image/jpg", "image/gif"}
+     *   mimeTypes = {"image/png", "image/jpg", "image/gif", "image/jpeg"}
      *  )
+     * //"video/mpeg", "video/mp4", "video/webm"
      */
     private $file;
 

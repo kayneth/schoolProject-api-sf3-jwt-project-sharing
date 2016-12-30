@@ -63,4 +63,3 @@ class Note
         return $this->note;
     }
 }
-

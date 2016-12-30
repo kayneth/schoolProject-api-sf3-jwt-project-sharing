@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Kayneth\UserBundle\KaynethUserBundle(),
             new Kayneth\CreationBundle\KaynethCreationBundle(),
             new Kayneth\FileBundle\KaynethFileBundle(),

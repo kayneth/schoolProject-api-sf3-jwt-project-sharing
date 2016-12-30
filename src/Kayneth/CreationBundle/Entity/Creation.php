@@ -80,7 +80,7 @@ class Creation
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created_at", type="datetimetz")
+     * @ORM\Column(name="created_at", type="datetime")
      *
      * @Expose
      */
@@ -90,7 +90,7 @@ class Creation
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated_at", type="datetimetz", nullable=true)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      *
      * @Expose
      */
@@ -116,6 +116,13 @@ class Creation
      * @Expose
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Kayneth\CreationBundle\Entity\Comment", mappedBy="creation")
+     *
+     * @Expose
+     */
+    private $comments;
 
     /**
      * @Assert\IsTrue(message = "La création doit disposer d'une image ou d'un lien")
@@ -298,16 +305,16 @@ class Creation
         return $this;
     }
     /**
-     * Get thumbnail
+     * Get image
      *
      * @return \Kayneth\FileBundle\Entity\File
      */
     public function getImage()
     {
         if ($this->image != null) {
-            $this->setThumbnailDir();
+            $this->setImageDir();
         }
-        return $this->thumbnail;
+        return $this->image;
     }
 
     public function setImageDir()
@@ -379,5 +386,46 @@ class Creation
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Kayneth\CreationBundle\Entity\Comment $comment
+     *
+     * @return Creation
+     */
+    public function addComment(\Kayneth\CreationBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Kayneth\CreationBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Kayneth\CreationBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

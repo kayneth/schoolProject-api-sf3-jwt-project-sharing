@@ -26,23 +26,18 @@ class CommentController extends Controller implements ClassResourceInterface
 
     public function postAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer');
-        $content = $request->getContent();
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
 
-        /**
-         * @var Comment $comment
-         */
-        $comment = $serializer->deserialize($content, Comment::class, 'json');
+        $form->submit($request->request->all());
 
-        $validator = $this->get('validator');
-        $errors = $validator->validate($comment);
-
-        if (count($errors) <= 0) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();
             return array('comment' => $comment);
         }else{
+            $errors = $this->get('form_serializer')->serializeFormErrors($form, true, true);
 
             return array(
                 'status' => 'error',

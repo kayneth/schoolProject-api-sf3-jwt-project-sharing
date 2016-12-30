@@ -3,6 +3,11 @@ creation:
     resource: Kayneth\CreationBundle\Controller\CreationController
     name_prefix:  api_
 
+category:
+    type:     rest
+    resource: Kayneth\CreationBundle\Controller\CategoryController
+    name_prefix:  api_
+
 comments:
     type:     rest
     parent:   creation

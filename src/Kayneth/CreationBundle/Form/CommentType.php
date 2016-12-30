@@ -2,6 +2,7 @@
 
 namespace Kayneth\CreationBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,15 @@ class CommentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content');
+        $builder
+            ->add('content')
+            ->add('creation', EntityType::class, array(
+                'class'        => 'KaynethCreationBundle:Creation',
+                'choice_label' => 'title',
+                'multiple'     => false,
+                'required'     => false
+            ))
+        ;
     }
     
     /**

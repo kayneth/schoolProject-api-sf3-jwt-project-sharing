@@ -2,7 +2,10 @@
 
 namespace Kayneth\CreationBundle\Form;
 
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +19,12 @@ class CreationType extends AbstractType
         $builder->add('title')
             ->add('link')
             ->add('description')
-            //->add('category')
+            ->add('image', FileType::class)
+            ->add('category', EntityType::class, array(
+                'class'        => 'KaynethCreationBundle:Category',
+                'choice_label' => 'title',
+                'multiple'     => false,
+            ))
         ;
     }
     

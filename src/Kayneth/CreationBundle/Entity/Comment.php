@@ -34,7 +34,7 @@ class Comment
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created_at", type="datetimetz")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
@@ -42,9 +42,25 @@ class Comment
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated_at", type="datetimetz", nullable=true)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Kayneth\CreationBundle\Entity\Creation", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $creation;
+
+    /**
+     * @var User $user
+     *
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="Kayneth\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
 
     /**
@@ -127,5 +143,29 @@ class Comment
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set creation
+     *
+     * @param \Kayneth\CreationBundle\Entity\Creation $creation
+     *
+     * @return Comment
+     */
+    public function setCreation(\Kayneth\CreationBundle\Entity\Creation $creation)
+    {
+        $this->creation = $creation;
+
+        return $this;
+    }
+
+    /**
+     * Get creation
+     *
+     * @return \Kayneth\CreationBundle\Entity\Creation
+     */
+    public function getCreation()
+    {
+        return $this->creation;
     }
 }
