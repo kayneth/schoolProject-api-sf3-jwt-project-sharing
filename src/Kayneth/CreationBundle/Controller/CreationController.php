@@ -15,7 +15,7 @@ class CreationController extends Controller implements ClassResourceInterface
         $em = $this->getDoctrine()->getManager();
         $creations = $em
             ->getRepository('KaynethCreationBundle:Creation')
-            ->findAll();
+            ->descId();
         ;
 
         return array('creations' => $creations);
@@ -37,12 +37,22 @@ class CreationController extends Controller implements ClassResourceInterface
         $creation = new Creation();
         $form = $this->createForm(CreationType::class, $creation);
 
-        $form->submit($request->request->all());
+        $data = $request->request->all();
+        $submitted = array();
+        foreach($data as $key => $item) {
+            $submitted[$key] = $item;
+        }
+        $file = $request->files->get('image');
+        $submitted['image']['file'] = $file;
+        $form->submit($submitted);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($creation);
             $em->flush();
+
+            $this->get("kayneth_creation.email")->sendNotification($creation);
+
             return array('creation' => $creation);
         }else{
             $errors = $this->get('form_serializer')->serializeFormErrors($form, true, true);
@@ -58,7 +68,14 @@ class CreationController extends Controller implements ClassResourceInterface
     {
         $form = $this->createForm(CreationType::class, $creation);
 
-        $form->submit($request->request->all());
+        $data = $request->request->all();
+        $submitted = array();
+        foreach($data as $key => $item) {
+            $submitted[$key] = $item;
+        }
+        $file = $request->files->get('image');
+        $submitted['image']['file'] = $file;
+        $form->submit($submitted);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

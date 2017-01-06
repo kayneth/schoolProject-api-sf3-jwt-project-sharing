@@ -125,6 +125,25 @@ class Creation
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="Kayneth\CreationBundle\Entity\Score", mappedBy="creation")
+     *
+     * @Expose
+     */
+    private $scores;
+
+    private $imageDir;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
      * @Assert\IsTrue(message = "La création doit disposer d'une image ou d'un lien")
      */
     public function hasLinkOrFile()
@@ -317,24 +336,29 @@ class Creation
         return $this->image;
     }
 
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
     public function setImageDir()
     {
-        $dir = "uploads/files/creation/".$this->slug."/image/";
-        $this->image->setUploadDir($dir);
+        $this->imageDir = "uploads/files/creation/".$this->id."/image";
+        $this->image->setUploadDir($this->imageDir);
         return $this;
     }
 
     /**
      * @VirtualProperty
-     * @SerializedName("image")
+     * @SerializedName("imageLink")
      *
      * @return string
      */
-    public function getImageRootDir()
+    public function getImageLink()
     {
         if($this->image != null)
         {
-            $dir = $this->image->getUploadRootDir();
+            $this->setImageDir();
+            $dir = $this->image->getWebPath();
             return $dir;
         }
         return $dir="null";
@@ -387,13 +411,6 @@ class Creation
     {
         return $this->category;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add comment
@@ -427,5 +444,61 @@ class Creation
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add score
+     *
+     * @param \Kayneth\CreationBundle\Entity\Score $score
+     *
+     * @return Creation
+     */
+    public function addScore(\Kayneth\CreationBundle\Entity\Score $score)
+    {
+        $this->scores[] = $score;
+
+        return $this;
+    }
+
+    /**
+     * Remove score
+     *
+     * @param \Kayneth\CreationBundle\Entity\Score $score
+     */
+    public function removeScore(\Kayneth\CreationBundle\Entity\Score $score)
+    {
+        $this->scores->removeElement($score);
+    }
+
+    /**
+     * Get scores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getScores()
+    {
+        return $this->scores;
+    }
+
+    /**
+     * @VirtualProperty
+     * @SerializedName("scoreAverage")
+     *
+     * @return integer
+     */
+    public function getAverageScore() {
+        $average = 0;
+
+        if($this->scores->count() == 0){
+            return '~';
+        }
+
+        foreach($this->scores as $score) {
+            $average += intval($score->getNote());
+        }
+
+        $average = $average / $this->scores->count();
+
+        return round($average, 1);
     }
 }

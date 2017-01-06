@@ -13,3 +13,9 @@ comments:
     parent:   creation
     resource: Kayneth\CreationBundle\Controller\CommentController
     name_prefix:  api_
+
+score:
+    type:     rest
+    parent:   creation
+    resource: Kayneth\CreationBundle\Controller\ScoreController
+    name_prefix:  api_

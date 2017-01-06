@@ -111,6 +111,11 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: Kayneth\UserBundle\Entity\User
+    registration:
+        form:
+            type: Kayneth\UserBundle\Form\RegistrationFormType
+        confirmation:
+            enabled: false #mettre à true pour activer la validation par email
 
 fos_rest:
     routing_loader:
@@ -133,6 +138,7 @@ fos_rest:
             html: true
         failed_validation: HTTP_BAD_REQUEST
         default_engine: twig
+    disable_csrf_role: ROLE_USER
 
 jms_serializer:
     enable_short_alias: false

@@ -2,3 +2,8 @@ user:
     type:     rest
     resource: Kayneth\UserBundle\Controller\UserController
     name_prefix:  api_
+
+invitation:
+    type:     rest
+    resource: Kayneth\UserBundle\Controller\InvitationController
+    name_prefix:  api_

@@ -4,3 +4,16 @@ services:
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
      form_serializer:
          class: Kayneth\CreationBundle\Utils\FormErrorsSerializer
+
+     kayneth_creation.email:
+          class: Kayneth\CreationBundle\Utils\CreationEmail
+          arguments:
+              - "@mailer"
+              - "@fos_user.user_manager"
+              - false
+
+     kayneth_creation.doctrine_listener.creation:
+         class: Kayneth\CreationBundle\DoctrineListener\CreationListener
+         arguments: []
+         tags:
+           - { name: doctrine.event_listener, event: postPersist }

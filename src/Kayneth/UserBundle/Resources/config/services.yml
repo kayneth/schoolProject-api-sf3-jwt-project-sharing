@@ -2,3 +2,40 @@ services:
 #    kayneth_user.example:
 #        class: Kayneth\UserBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+     kayneth_user.form.registration:
+             class: Kayneth\UserBundle\Form\RegistrationFormType
+             tags:
+                 - { name: "form.type", alias: "app_user_registration" }
+
+     kayneth_user.form.invitation:
+         class: Kayneth\UserBundle\Form\InvitationFormType
+         arguments: ['@kayneth_user.form.data_transformer.invitation']
+         tags:
+             - { name: "form.type", alias: "app_invitation_type" }
+
+     kayneth_user.form.data_transformer.invitation:
+         class: Kayneth\UserBundle\Form\DataTransformer\InvitationToCodeTransformer
+         arguments: ['@doctrine.orm.entity_manager']
+         public: false
+
+     kayneth_user.event.jwt_created_listener:
+             class: Kayneth\UserBundle\EventListener\JWTCreatedListener
+             arguments: [ '@request_stack' ]
+             tags:
+                 - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
+     kayneth_user.event.jwt_decoded_listener:
+             class: Kayneth\UserBundle\EventListener\JWTDecodedListener
+             arguments: [ '@request_stack', "@security.token_storage" ]
+             tags:
+                 - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onJWTDecoded }
+
+     kayneth_user.event.authentication_success_listener:
+              class: Kayneth\UserBundle\EventListener\AuthenticationSuccessListener
+              tags:
+                  - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+
+     kayneth_user.event.jwt_authenticated_listener:
+             class: Kayneth\UserBundle\EventListener\JWTAuthenticatedListener
+             tags:
+                 - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_authenticated, method: onJWTAuthenticated }

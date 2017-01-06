@@ -168,4 +168,28 @@ class Comment
     {
         return $this->creation;
     }
+
+    /**
+     * Set user
+     *
+     * @param \Kayneth\UserBundle\Entity\User $user
+     *
+     * @return Comment
+     */
+    public function setUser(\Kayneth\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Kayneth\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

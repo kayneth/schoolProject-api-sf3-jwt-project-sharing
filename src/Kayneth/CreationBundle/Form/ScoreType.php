@@ -2,28 +2,25 @@
 
 namespace Kayneth\CreationBundle\Form;
 
-use Doctrine\ORM\Mapping\Entity;
-use Kayneth\FileBundle\Form\FileUploadType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreationType extends AbstractType
+class ScoreType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')
-            ->add('link')
-            ->add('description')
-            ->add('image', FileUploadType::class)
-            ->add('category', EntityType::class, array(
-                'class'        => 'KaynethCreationBundle:Category',
+        $builder
+            ->add('note')
+            ->add('creation', EntityType::class, array(
+                'class'        => 'KaynethCreationBundle:Creation',
                 'choice_label' => 'title',
                 'multiple'     => false,
+                'required'     => false
             ))
         ;
     }
@@ -35,7 +32,7 @@ class CreationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'csrf_protection'   => false,
-            'data_class' => 'Kayneth\CreationBundle\Entity\Creation'
+            'data_class' => 'Kayneth\CreationBundle\Entity\Score'
         ));
     }
 
@@ -44,7 +41,7 @@ class CreationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'kayneth_creationbundle_creation';
+        return 'kayneth_creationbundle_score';
     }
 
 

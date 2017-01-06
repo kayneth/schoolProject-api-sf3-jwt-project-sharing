@@ -10,4 +10,13 @@ namespace Kayneth\CreationBundle\Repository;
  */
 class CreationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function descId()
+    {
+        $query = $this->createQueryBuilder('c');
+
+        $query
+            ->orderBy('c.createdAt', 'DESC')
+        ;
+        return $query->getQuery()->getResult();
+    }
 }
